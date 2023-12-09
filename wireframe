@@ -1,0 +1,33 @@
+@startuml
+
+skinparam defaultTextAlignment center
+skinparam ArrowColor Black
+skinparam ArrowThickness 1
+skinparam ComponentBorderColor Black
+skinparam ComponentBackgroundColor White
+skinparam ComponentArrowColor Black
+skinparam ComponentArrowThickness 1
+
+!define RECTANGLE(x) class x << (R,orchid) >>
+!define DATABASE(x) class x << (D,yellow) >>
+
+RECTANGLE(DateRangeFilter) {
+  [Data Inicial] -- [Data Final]
+  .. Período de Datas ..
+  [Dia 1 do Mês] -- [Dia Atual]
+}
+
+RECTANGLE(MachCdFilter) {
+  [Linha Específica (mach_cd)] -- [Todas as Linhas (ALL)]
+  .. Filtro de Linha (mach_cd) ..
+}
+
+RECTANGLE(ReportTypeDropdown) {
+  [COMPLETO] -- [RESUMO] -- [GESTAO]
+  .. Tipo de Report ..
+}
+
+DateRangeFilter -[hidden]- MachCdFilter
+MachCdFilter -[hidden]- ReportTypeDropdown
+
+@enduml
