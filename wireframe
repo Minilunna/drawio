@@ -1,33 +1,16 @@
 @startuml
-
 skinparam defaultTextAlignment center
-skinparam ArrowColor Black
-skinparam ArrowThickness 1
-skinparam ComponentBorderColor Black
-skinparam ComponentBackgroundColor White
-skinparam ComponentArrowColor Black
-skinparam ComponentArrowThickness 1
+skinparam monochrome true
 
-!define RECTANGLE(x) class x << (R,orchid) >>
-!define DATABASE(x) class x << (D,yellow) >>
+' Filtro de Período de Datas
+rectangle "Filtro de Período de Datas\n-----------------------\nData Inicial: [______]\nData Final: [______]" as DateRange
 
-RECTANGLE(DateRangeFilter) {
-  [Data Inicial] -- [Data Final]
-  .. Período de Datas ..
-  [Dia 1 do Mês] -- [Dia Atual]
-}
+' Filtro de Linha (mach_cd)
+rectangle "Filtro de Linha (mach_cd)\n-----------------------\nLinha: [ALL|______]" as LineFilter
 
-RECTANGLE(MachCdFilter) {
-  [Linha Específica (mach_cd)] -- [Todas as Linhas (ALL)]
-  .. Filtro de Linha (mach_cd) ..
-}
+' Filtro de Tipo de Report
+rectangle "Filtro de Tipo de Report\n-----------------------\nTipo: [COMPLETO|RESUMO|GESTAO]" as ReportType
 
-RECTANGLE(ReportTypeDropdown) {
-  [COMPLETO] -- [RESUMO] -- [GESTAO]
-  .. Tipo de Report ..
-}
-
-DateRangeFilter -[hidden]- MachCdFilter
-MachCdFilter -[hidden]- ReportTypeDropdown
-
+DateRange -[hidden]- LineFilter
+LineFilter -[hidden]- ReportType
 @enduml
